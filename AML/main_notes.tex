@@ -227,6 +227,7 @@ Example problem: Compute $f(x), L(f(x),y),$ and $dL/dw_i$
 \caption{Comparison of activation functions.} \label{fig6}
 \end{figure}
 
+\subsection{Methodology}
 \subsubsection{Regression MLP Architecture}
 When Using Regression, we do not need an activation function, and furthermore the loss function is normally Mean Square Error(MSE). Due to no activation function, it's easy to think of Regression MLP's as a MLP with the identity activation function.
 
@@ -266,5 +267,175 @@ Multiclass & {Also similar to binary, but using $>2$ output classes}\\
 \end{table}
 \subsubsection{Softmax}
 
+The softmax function makes it so the sum of the estimated probabilities will be between 0 and 1, and furthermore will ensure that the sum of them all will equal 1.
+
+$$
+\hat{p}_k = \sigma(s(x))_k = \frac{exp(s_k(x))}{\Sigma_{j=1}^k exp(s_j(x))}
+$$
+
+\subsubsection{Backpropegation}
+\begin{enumerate}
+    \item[] Step 0: Initialize weights and biases
+    
+    \hspace*{10mm} Choose the weights and biases, typically at random
+    
+    \item[] Step 1: Pick one of the data points at random
+
+    \hspace*{10mm} Input the vector x into the left side of the network and calculate the output vector y
+    
+    \item[] Step 2: Calculate contribution to the loss function
+
+    \hspace*{10mm} Adjust the loss function accordingly
+    
+    \item[] Step 3: Starting at the right, calculate all the $\delta$'s
+
+    $$
+    \delta^{L} = \frac{d\phi^L}{dz} | _{z^L} (\hat{y} - y)
+    $$
+    As you move to the left, connect the nodes with the biases.
+    $$
+    \Sigma_j \delta_j^{l} w_{i,j}^l
+    $$
+    
+    \item[] Step 4: Update the weights and biases using (stochastic) GD
+
+    \item[] Return to step 1
+    
+\end{enumerate}
+
+\section{Lecture 3 - DNN Fitting}
+\subsection{Gradient Problems}
+\subsubsection{Vanishing/Exploding gradients}
+Gradients often get smaller and smaller as the algorithm progresses down to the lower layers. As a result, the GD update leaves the lower layer connection weights virtually unchanged, and training never converges to a good solution. This is Known as the Vanishing Gradients Problem\\
+
+\noindent Similarly the gradient can also grow bigger, then diverge. This is the Exploding Gradient Problem.
+
+\noindent We'll address some possible solutions that you can implement to solve this
+
+
+\begin{enumerate}
+    \item One approach is replacing the normal distribution (mean 0, deviation 1) random initialization of the weights with a normal distribution with mean 0 but a custom deviation to try to equal the variance of the inputs and outputs
+    \item Another approach is to replace the logistic sigmoid activation function(due to the fact that it saturates) with ReLu, Leaky ReLu or ELU.
+    
+    In general ELU $>$ leaky ReLU $>$ ReLU $>$ Tanh $>$ Logistic
+    \item Adding Batch Normalization to normalize the inputs then scale and shift the results, but at the cost of run time
+\end{enumerate}
+
+\subsubsection{Transfer Learning}
+Ever heard the saying it's not your code, it's our code? That's exactly what we're doing here.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.60]{fig7.PNG}
+\caption{Example of Transfer Learning.} \label{fig7}
+\end{figure}
+
+The main use case for this is when we find a similar problem that would require a similar model to solve, we can "yoink" them from model zoos to accelerate our learning.
+
+\subsection{The forefront of Deep Learning}
+
+This section is purely optional, but if you stick with me, we'll learn some very cool topics that are at the forefront of Deep Learning, and can be incorporated into your projects. We'll not go into too much detail, so just enjoy the theory.
+
+\subsubsection{Momentum Optimization}
+Ever seen a ball roll down a hill, ever wondered if we can model gradient descent the same way. Well I guess I'll take a 50\%, but we can do that! 
+$$
+m \xleftarrow{} \beta m - \eta \nabla_\theta J(\theta)
+$$
+$$
+\theta \xleftarrow{} \theta + m
+$$
+Where the terminal velocity equals $1/(1-\beta)$.
+
+\subsubsection{Nesterov Accelerated Gradient (NAG)}
+Similar to Momentum Optimization however we measure the gradient at a point slightly ahead of it's momentum.
+
+\subsubsection{AdaGrad}
+By making the learning rate slower, but allowing it to accelerate for steep dimensions, we gain an adaptive gradient which can push towards the minimum more effectively.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{fig8.PNG}
+\caption{Adagrad vs GD.} \label{fig8}
+\end{figure}
+
+\subsubsection{RMSProp}
+Similar to AdaGrad, but it doesn't slow down that much, because it only accumulates the gradients from the most recent iterations
+
+\subsubsection{Adam (adaptive momentum estimation)}
+combination of the Momentum and the RMSProp
+
+Uses Momentum optimization to keep track of an exponentially
+
+decaying average of past gradients
+
+Also keeps track of average of past squared gradients (like RMSProp)
+
+\begin{table}[H]
+\caption{Optimizer Comparison}\label{tab1}
+\begin{tabular}{|l|l|l|}
+\hline
+Class & Speed & Quality \\
+\hline
+SGD &  * & ***\\
+\hline
+SGD(Momenum = ...) &  ** & *** \\
+\hline
+SGD(Momentum = ..., nesterov=True) & ** & ***\\
+\hline
+Adagrad &  *** & * (stops too early)\\
+\hline
+RMSprop &  *** & ** or ***\\
+\hline
+Adam &  *** & ** or ***\\
+\hline
+Nadam &  *** & ** or ***\\
+\hline
+AdaMax &  *** & ** or ***\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Regularization}
+Due to the structure of the data, it is easy to overfit it, thus we should stop it once it gets close enough otherwise it'll attempt to mimic the patterns viewed in this dataset, and won't be able to replicate it in other datasets, thus ruining the point of analyzing it.
+
+\subsubsection{Early Stopping}
+Interrupt the training when it's performance on the validation data sets starts to decline. This method works, but it relatively barebones.
+\subsubsection{Dropout Regularization}
+Method: at every training step, every neuron has a probability p of being temporarily “dropped out,” meaning it will be entirely ignored during this training step, but it may be active during the next step. This prevents neurons from becoming co-dependant on each other.
+\subsubsection{Data Augmentation}
+Generating new training instances from the already existing ones, which will increase the training set. This core idea will be readdressed on GANs.
+\subsubsection{DNN Summary}Thank you for sticking with me for the DNN Section of this PDF, the last thing I want to provide you is a state of the art DNN Configuration that you can almost always rely on
+
+\begin{table}[H]
+\caption{Default DNN configuration}\label{tab1}
+\begin{tabular}{|l|l|}
+\hline
+Hyperparameter & Default Value \\
+\hline
+Kernel Initializer &  He Initialization\\
+\hline
+Activation Function &  ELU \\
+\hline
+Normalization & None if Shallow; Batch Norm if Deep\\
+\hline
+Regularization & Early Stopping\\
+\hline
+Optimizer &  Momentum Optimization(or RMSProp or Nadam)\\
+\hline
+Learning Rate Schedule & 1 Cycle\\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Lecture 4 - CNN}
+
+\subsection{Convolutional Neural Networks}
+
+\subsubsection{Intro}
+
+Unlike ANN's and DNN's which focus on analyzing each and every pixel of an image and connecting each nerve to each nerve. CNN's are modeled after the brain's way of understanding 
 
 \end{document}
+
+
