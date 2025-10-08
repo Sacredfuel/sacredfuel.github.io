@@ -1,0 +1,730 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Logic and Unix &#8212; Lecture Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/csci127/cs127_06_logic';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Lecture Notes - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Lecture Notes - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Ryan’s Lecture Notes
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcourses/csci127/cs127_06_logic.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/courses/csci127/cs127_06_logic.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Logic and Unix</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-the-end-of-this-notebook-you-ll-be-able-to">At the end of this notebook, you’ll be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-truth-tables">Part I. Truth Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-circuit-diagrams">Part II. Circuit Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-unix">Part III. Unix</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="logic-and-unix">
+<h1>Logic and Unix<a class="headerlink" href="#logic-and-unix" title="Link to this heading">#</a></h1>
+<p>Today’s lab will focus on logical expressions and circuits and commands in the Unix operating system.</p>
+<section id="at-the-end-of-this-notebook-you-ll-be-able-to">
+<h2>At the end of this notebook, you’ll be able to:<a class="headerlink" href="#at-the-end-of-this-notebook-you-ll-be-able-to" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Draw a circuit composed of logical operations</p></li>
+<li><p>Evaluate the truth table of a circuit diagram</p></li>
+<li><p>Use commands to explore your file system in UNIX</p></li>
+</ul>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#one"><span class="xref myst">Part I. Truth Tables</span></a></p></li>
+<li><p><a class="reference internal" href="#two"><span class="xref myst">Part II. Circuit Diagrams</span></a></p></li>
+<li><p><a class="reference internal" href="#three"><span class="xref myst">Part III. Unix Commands</span></a></p></li>
+</ol>
+<hr><p><a id="one"></a></p>
+</section>
+<section id="part-i-truth-tables">
+<h2>Part I. Truth Tables<a class="headerlink" href="#part-i-truth-tables" title="Link to this heading">#</a></h2>
+<p>Last week, we introduced decisions (if-statements). These relied on the “test” which was an expression that evaluated to true or false.</p>
+<p>We can build up more complicated logical expressions using built-in operators, <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code>. A standard way to summaries these operators is with truth tables. A truth table lists all the possible inputs and gives the output for each combination.</p>
+<p>For example, here is the truth table for the and operator:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c}
+in1 &amp; in2 &amp; in1 \text{ and } in2 \\
+\hline
+T &amp; T &amp; T \\
+T &amp; F &amp; F \\
+F &amp; T &amp; F \\
+F &amp; F &amp; F \\
+\end{array}
+\end{split}\]</div>
+<p>It lists all the possible combinations of values for the inputs, <code class="docutils literal notranslate"><span class="pre">in1</span></code> and <code class="docutils literal notranslate"><span class="pre">in2</span></code> and what and would give as output. For example, if <code class="docutils literal notranslate"><span class="pre">in1</span></code> is True and <code class="docutils literal notranslate"><span class="pre">in2</span></code> is False, the value of <code class="docutils literal notranslate"><span class="pre">in1</span> <span class="pre">and</span> <span class="pre">in2</span></code> can be read off the last column of the second line of the truth table as False.</p>
+<blockquote>
+<div><p><b>Task:</b>
+Write out the truth table for the logical operator <code class="docutils literal notranslate"><span class="pre">or</span></code></p>
+</div></blockquote>
+<p>Using these tables, we can evaluate more complex logical statements</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c|c}
+in1 &amp; in2 &amp; in3 &amp; \text{in1 or (in2 and in3)} \\
+\hline
+T &amp; T &amp; T &amp; T\\
+T &amp; T &amp; F &amp; T\\
+T &amp; F &amp; T &amp; T\\
+T &amp; F &amp; F &amp; T\\
+F &amp; T &amp; T &amp; T\\
+F &amp; T &amp; F &amp; F\\
+F &amp; F &amp; T &amp; F\\
+F &amp; F &amp; F &amp; F\\
+\end{array}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c|c}
+in1 &amp; in2 &amp; in3 &amp; \text{in1 and (in2 and in3)} \\
+\hline
+T &amp; T &amp; T &amp; T \\
+T &amp; T &amp; F &amp; F \\
+T &amp; F &amp; T &amp; F \\
+T &amp; F &amp; F &amp; F \\
+F &amp; T &amp; T &amp; F \\
+F &amp; T &amp; F &amp; F \\
+F &amp; F &amp; T &amp; F \\
+F &amp; F &amp; F &amp; F \\
+\end{array}
+\end{split}\]</div>
+<blockquote>
+<div><p><b>Task:</b>
+Fill in the truth tables for the following statements</p>
+<p>in1 and not(in2)</p>
+<p>(in1 and in3) or in2</p>
+<p>(in1 and in2) or (in1 and in3)</p>
+<p>(in1 and in2) and not(in2 and in3)</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c}
+in1 &amp; in2 &amp; \text{in1 and not(in2)} \\
+\hline
+T &amp; T &amp; F\\
+T &amp; F &amp; T \\
+F &amp; T &amp; F \\
+F &amp; F &amp; F \\
+\end{array}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c|c}
+in1 &amp; in2 &amp; in3 &amp; \text{(in1 and in3) or in2} \\
+\hline
+T &amp; T &amp; T &amp; T\\
+T &amp; T &amp; F &amp; T\\
+T &amp; F &amp; T &amp; T\\
+T &amp; F &amp; F &amp; F\\
+F &amp; T &amp; T &amp; T\\
+F &amp; T &amp; F &amp; T\\
+F &amp; F &amp; T &amp; F\\
+F &amp; F &amp; F &amp; F\\
+\end{array}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c|c}
+in1 &amp; in2 &amp; in3 &amp; \text{(in1 and in2) or (in1 and in3)} \\
+\hline
+T &amp; T &amp; T &amp; T\\
+T &amp; T &amp; F &amp; T\\
+T &amp; F &amp; T &amp; T\\
+T &amp; F &amp; F &amp; F\\
+F &amp; T &amp; T &amp; F\\
+F &amp; T &amp; F &amp; F\\
+F &amp; F &amp; T &amp; F\\
+F &amp; F &amp; F &amp; F\\
+\end{array}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{c|c|c|c}
+in1 &amp; in2 &amp; in3 &amp; \text{(in1 and in2) and not(in2 and in3)} \\
+\hline
+T &amp; T &amp; T &amp; ?\\
+T &amp; T &amp; F &amp; ?\\
+T &amp; F &amp; T &amp; ?\\
+T &amp; F &amp; F &amp; ?\\
+F &amp; T &amp; T &amp; ?\\
+F &amp; T &amp; F &amp; ?\\
+F &amp; F &amp; T &amp; ?\\
+F &amp; F &amp; F &amp; ?\\
+\end{array}
+\end{split}\]</div>
+<p><a id="one"></a></p>
+</section>
+<section id="part-ii-circuit-diagrams">
+<h2>Part II. Circuit Diagrams<a class="headerlink" href="#part-ii-circuit-diagrams" title="Link to this heading">#</a></h2>
+<p>The logical expressions above are useful not only in designing decisions and selecting data in Python, but the same concept underlies much of the hardware of computers. The and, or, and not can all be simulated in hardware via logic gates. These gates take inputs (usually 0 or 1) and output a value, based on the logical operator it is simulating.</p>
+<p><img alt="image" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdyc3ylug23b1.cloudfront.net%2Fprod%2F36815a032b016552aaa613898133f7a6-image.png&amp;f=1&amp;nofb=1&amp;ipt=cef7c22e14727a672a16608237f204c14c36bd9a6f32ebde630ed3deff800f48" /></p>
+<p>You can build your own circuit diagrams <a class="reference external" href="https://circuitverse.org/simulator">here</a></p>
+<blockquote>
+<div><p><b>Task:</b>
+Design a circuit that implements the logical expression</p>
+<p>in1 and not(in2)</p>
+<p>(in1 and in3) or in2</p>
+<p>(in1 and in2) or (in1 and in3)</p>
+<p>((in1 and in2) or (in1 and in3)) or not(in2 and not in3)</p>
+</div></blockquote>
+<p><a id="Three"></a></p>
+</section>
+<section id="part-iii-unix">
+<h2>Part III. Unix<a class="headerlink" href="#part-iii-unix" title="Link to this heading">#</a></h2>
+<p>UNIX is an innovative or groundbreaking operating system which was developed in the 1970s by Ken Thompson, Dennis Ritchie, and many others at AT&amp;T Laboratories. It is like a backbone for many modern operating systems like Ubuntu, Solaris, Kali Linux, Arch Linux, and also POSIX.</p>
+<p>The basic design philosophy of UNIX is to provide simple, powerful tools that can be combined to perform complex tasks. It features a command-line interface (CLI) that allows users to interact with the system through a series of commands, rather than through a graphical user interface (GUI).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>What it does</p></th>
+<th class="head"><p>Acronym meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ls</p></td>
+<td><p>prints all the files in the current directory</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>cd</p></td>
+<td><p>opens a folder / navigates into</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>pwd</p></td>
+<td><p>prints the current directory</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>mv</p></td>
+<td><p>moves a file / renames it</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>cp</p></td>
+<td><p>makes a copy of a file</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>wc -l</p></td>
+<td><p>gets how many files are currently printed</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p>mkdir</p></td>
+<td><p>makes a folder</p></td>
+<td><p>make directory</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To run commands via your system’s command line, add a ! before the command</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 127				  Introduction_to_Jupyter_Notebooks.ipynb
+ cs127_01_jupyter.ipynb		  jupyter_setup.pdf
+ cs127_03_string.ipynb		  Music
+ cs127_04_colors.ipynb		  OpenAL32.dll
+ cs127_05_decisions-Copy1.ipynb   Pictures
+ cs127_06_logic.ipynb		  Public
+ cs127_hw1.ipynb		  qpwgraph
+ cs127_hw2.ipynb		  roster.txt
+ csBridge.png			  schedule.txt
+ default.qpwgraph		  syllabus.pdf
+ Desktop			  Templates
+ Documents			  tempnotes.txt
+ Downloads			  testingdir
+ elevationsNYC.txt		  todo.txt
+&#39;Final Exam review.pdf&#39;		  venv
+ git				  Videos
+ go
+</pre></div>
+</div>
+</div>
+</div>
+<p>ls</p>
+<p>mkdir temp</p>
+<p>mv temp.txt temp</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses/csci127"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-the-end-of-this-notebook-you-ll-be-able-to">At the end of this notebook, you’ll be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-truth-tables">Part I. Truth Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-circuit-diagrams">Part II. Circuit Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-unix">Part III. Unix</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ryan Vaz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
