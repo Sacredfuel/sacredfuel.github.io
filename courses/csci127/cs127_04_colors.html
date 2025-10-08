@@ -1,0 +1,832 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Decisions &#8212; Lecture Notes</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/csci127/cs127_04_colors';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Lecture Notes - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Lecture Notes - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../index.html">
+                    Ryan’s Lecture Notes
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcourses/csci127/cs127_04_colors.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/courses/csci127/cs127_04_colors.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Decisions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-the-end-of-this-notebook-you-ll-be-able-to">At the end of this notebook, you’ll be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-inputs">Part I. Inputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-if-statements">Part II. If Statements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-loading-data">Part III: Loading data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="decisions">
+<h1>Decisions<a class="headerlink" href="#decisions" title="Link to this heading">#</a></h1>
+<p>Suppose you want to run one command if a certain condition is true and another command if the condition is false. Python has a built in control block to handle this.</p>
+<section id="at-the-end-of-this-notebook-you-ll-be-able-to">
+<h2>At the end of this notebook, you’ll be able to:<a class="headerlink" href="#at-the-end-of-this-notebook-you-ll-be-able-to" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Take input from the user</p></li>
+<li><p>Understand the logic used for an if statements (of one statement)</p></li>
+<li><p>Load data from a txt file</p></li>
+</ul>
+</section>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#one"><span class="xref myst">Part I. Inputs</span></a></p></li>
+<li><p><a class="reference internal" href="#two"><span class="xref myst">Part II. If statements</span></a></p></li>
+<li><p><a class="reference internal" href="#three"><span class="xref myst">Part III. Loading data</span></a></p></li>
+</ol>
+<hr><p><a id="one"></a></p>
+</section>
+<section id="part-i-inputs">
+<h2>Part I. Inputs<a class="headerlink" href="#part-i-inputs" title="Link to this heading">#</a></h2>
+<p>While we have been manually entering in variables to generate our outputs, we can also directly get input from the user.</p>
+<p>Since Python doesn’t know what you will be entering (number, words, etc.), it stores everything as a string, and leaves it to the user to convert it to what they want. For example, if we wanted a number, we need to convert the letters the user used into a number. The basic conversion functions are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">int()</span></code> : converts a string (series of characters) into the corresponding integer (whole number).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float()</span></code> : converts a string (series of characters) into the corresponding floating point number (real number).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str()</span></code> : converts a number into the corresponding sequence of characters.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_string</span> <span class="o">=</span> <span class="s1">&#39;240&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_string</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">my_string</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s1">&#39;240&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_int</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">my_int</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;240&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_float</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">my_float</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that we cannot mix two different types unless they are numbers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">400</span>  <span class="c1"># type int</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">40.4</span> <span class="c1"># type float</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">43</span>  <span class="c1"># type int</span>
+<span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span> <span class="c1"># type string</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However intrestingly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>   <span class="c1"># type int</span>
+<span class="n">b</span> <span class="o">=</span> <span class="s2">&quot;Hi&quot;</span> <span class="c1"># type string</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Python allows users to get input (in the form of a string) by using the input function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Takes input from the user and stores it in variable my_string</span>
+
+<span class="n">my_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter your name: &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The text that is inside the parenthesis is printed out, then a text prompt is provided where the user can enter in a value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of a turtle that draws a square of 4 different colors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;red orange green blue purple cyan&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+         <span class="c1"># [&#39;red&#39;, &#39;orange&#39;, &#39;green&#39;, &#39;blue&#39;]</span>
+<span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">:</span>
+    <span class="n">set_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">forward</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">(</span><span class="mi">360</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><svg width="300" height="150" style="fill:none; stroke-linecap:round;">
+    <rect width="100%" height="100%" fill="#F3F3F7" />
+
+
+<path stroke="red" stroke-width="2" d="M 150,75 180,75" />'
+
+<path stroke="orange" stroke-width="2" d="M 180,75 195,49" />'
+
+<path stroke="green" stroke-width="2" d="M 195,49 180,23" />'
+
+<path stroke="blue" stroke-width="2" d="M 180,23 150,23" />'
+
+<path stroke="purple" stroke-width="2" d="M 150,23 135,49" />'
+
+<path stroke="cyan" stroke-width="2" d="M 135,49 150,75" />'
+
+<g transform="rotate(-90.0,150.0,75.0) translate(150.0, 75.0)">
+    <circle stroke="#63A375" stroke-width="2" fill="transparent" r="5.5" cx="0" cy="0"/>
+    <polygon points="0,12 2,9 -2,9" style="fill:#63A375;stroke:#63A375;stroke-width:2"/>
+</g>
+
+</svg></div></div>
+</div>
+<p>But what if we want a color that’s not obvious to the computer (for example lilac), we’ll need a more robust system for representing colors</p>
+<blockquote>
+<div><p><b>Task:</b>
+Write a program to draw a triangle with 3 different colors</p>
+</div></blockquote>
+<p><a id="two"></a></p>
+</section>
+<section id="part-ii-if-statements">
+<h2>Part II. If Statements<a class="headerlink" href="#part-ii-if-statements" title="Link to this heading">#</a></h2>
+<p>The decimal system is a way of representing numbers that you are familiar with from elementary school. In the decimal system, a number is represented by a list of digits from 0 to 9, where each digit represents the coefficient for a power of 10.</p>
+<p>147.3 using the powers of 10</p>
+<p><span class="math notranslate nohighlight">\(147.3 = 1 \cdot 10^2 + 4 \cdot 10^1 + 7 \cdot 10^0 + 3 \cdot 10^{-1}\)</span>.</p>
+<p>Since each digit is associated with a power of 10, the decimal system is also known as <strong>base10</strong>  because it is based on 10 digits (0 to 9). However, there is nothing special about base10 numbers except perhaps that you are more accustomed to using them. For example, in base3 we have the digits 0, 1, and 2 and the number <span class="math notranslate nohighlight">\(121(base\ 3) = 1 \cdot 3^2 + 2 \cdot 3^1 + 1 \cdot  3^0 = 9 + 6 + 1 = 16(base\ 10)\)</span></p>
+<p>It is useful to denote which representation a number is in. Therefore in this chapter, every number will be followed by its representation in parentheses (e.g., 11 (base10) means 11 in base10) unless the context is clear.</p>
+<p>A very important representation of numbers for computers is base2 or <strong>binary</strong>  numbers. In binary, the only available digits are 0 and 1, and each digit is the coefficient of a power of 2. Digits in a binary number are also known as a <strong>bit</strong>. Note that binary numbers are still numbers, and so addition and multiplication are defined on them exactly as you learned in grade school.</p>
+<p><strong>Example</strong> Convert the number 11 (base10) and 37 (base 10) into binary.
+<span class="math notranslate nohighlight">\(11 (base\ 10) = 8 + 2 + 1 = 1 \cdot 2^3 + 0 \cdot 2^2 +1 \cdot 2^1 +1 \cdot 2^0 = 1011 (base\ 2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(37\ (base\ 10) = 32 + 4 + 1 = 1 \cdot 2^5 + 0 \cdot 2^4 + 0 \cdot  2^3 + 1 \cdot  2^2 + 0 \cdot  2^1 + 1 \cdot  2^0 = 100101\ (base\ 2)\)</span></p>
+<p><strong>Example</strong> Convert the number 24 (base10) and 89 (base 10) into hexadecimal.
+<span class="math notranslate nohighlight">\(24 (base\ 10) = 16 + 8 = 1 \cdot 16^1 + 8 \cdot 16^0 = 18 (base\ 16)\)</span></p>
+<p><span class="math notranslate nohighlight">\(89\ (base\ 10) = 80 + 9 = 5 \cdot 16^1 + 9 \cdot 16^0 = 59\ (base\ 16)\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0b1011
+0b100101
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="mi">89</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0x18
+0x59
+</pre></div>
+</div>
+</div>
+</div>
+<p>But what happens if we run out of numbers when counting in base 16?</p>
+<p><img alt="image.png" src="https://huntercsci127.github.io/images/hands16.png" /></p>
+<p>In hexadecimal, once we hit the number 9, we start using letters. So A=10, B=11, C=12, D=13, E=14, F=15.</p>
+<p>Binary numbers are useful for computers because arithmetic operations on the digits 0 and 1 can be represented using AND, OR, and NOT, which computers can do extremely fast.</p>
+<p>Unlike humans that can abstract numbers to arbitrarily large values, computers have a fixed number of bits that they are capable of storing at one time. For example, a 32-bit computer can represent and process 32-digit binary numbers and no more. If all 32-bits are used to represent positive integer binary numbers, then this means that there are <span class="math notranslate nohighlight">\(\sum_{n=0}^{31} 2^{n} = 4,294,967,296\)</span> numbers the computer can represent. This is not very many numbers at all and would be completely insufficient to do any useful arithmetic on. For example, you could not compute the perfectly reasonable sum <span class="math notranslate nohighlight">\(0.5 + 1.25\)</span> using this representation because all the bits are dedicated to only integers.</p>
+<blockquote>
+<div><p><b>Task:</b>
+Convert the following</p>
+</div></blockquote>
+<p>12 base 10 to binary</p>
+<p>1101 binary to base 10</p>
+<p>156 base 10 to hex</p>
+<p>FA hex to base 10</p>
+<p>Colors follow the format of Red, Green, Blue, or RGB for short. This means the first slot represents the redness of a color, the second slot represents the greenness of a color, and the third slot represents the blueness of a color. Check out some of the common colors found <a class="reference external" href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">here</a></p>
+<p><img alt="image.png" src="https://huntercsci127.github.io/images/blues.png" /></p>
+<blockquote>
+<div><p><b>Task:</b>
+Guess the following colors</p>
+</div></blockquote>
+<blockquote>
+<div><p>00FF00</p>
+<p>0000FF</p>
+<p>FF0000</p>
+<p>000000</p>
+<p>FFFFFF</p>
+</div></blockquote>
+<p>And likewise, we can use the following on turtle</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the turtle to blue</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">make_turtle</span><span class="p">()</span>          <span class="c1"># creates the turtle for us</span>
+<span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;#0000FF&#39;</span><span class="p">)</span>   <span class="c1"># sets the color to blue</span>
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>            <span class="c1"># moves forward by 50</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="three"></a></p>
+</section>
+<section id="part-iii-loading-data">
+<h2>Part III: Loading data<a class="headerlink" href="#part-iii-loading-data" title="Link to this heading">#</a></h2>
+<p>There are many different formats to store images. Some store the information about the color of every pixel (“picture element” or dot on the screen). Others store end points of lines or boundaries of regions and the colors of each. We focus on the former, and in particular, use the png (portable network graphics) file format, which is popular for storing images captured from cameras and is `lossless’ (every pixel captured is stored, so, can also be quite large).</p>
+<p>For the purposes of this section, I’ll be working with the following image:</p>
+<p><a class="reference external" href="https://huntercsci127.github.io/images/csBridge.png">https://huntercsci127.github.io/images/csBridge.png</a></p>
+<p>Feel free to pick your own image to use!</p>
+<p>Every pixel on your computer contains a red, green and blue component that are in the same spot as each other (well not exactly). This leads to your computer displaying each pixel with 3 different components.</p>
+<p><img alt="image.png" src="https://huntercsci127.github.io/images/sic-imageplanes.png" /></p>
+<p>Any point can be accessed via its coordinates (i,j) and the color channel (0 for red, 1 for green, and 2 for blue). In our example above, with the picture stored in the variable, img:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">chan</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip3<span class="w"> </span>install<span class="w"> </span>matplotlib<span class="w"> </span>numpy
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;csBridge.png&#39;</span><span class="p">)</span>   <span class="c1">#Read in image from csBridge.png</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>		               <span class="c1">#Load image into pyplot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7cbd2ef50690&gt;
+</pre></div>
+</div>
+<img alt="../../_images/c31b455067c903c9a2ff15b594df645ab53ef2a5cc405569dafd45cd094044ad.png" src="../../_images/c31b455067c903c9a2ff15b594df645ab53ef2a5cc405569dafd45cd094044ad.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img2</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>        <span class="c1">#make a copy of our image</span>
+<span class="n">img2</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>          <span class="c1">#Set the green channel to 0</span>
+<span class="n">img2</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>          <span class="c1">#Set the blue channel to 0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img2</span><span class="p">)</span>         <span class="c1">#show the new image</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x750238cf2fd0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/d7660f41254eca056ef321984b8f106e22b9bc6bdb8634e7d6ac1117ba0ec686.png" src="../../_images/d7660f41254eca056ef321984b8f106e22b9bc6bdb8634e7d6ac1117ba0ec686.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img2</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>        <span class="c1">#make a copy of our image</span>
+<span class="n">img2</span><span class="p">[:,</span><span class="mi">300</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>          <span class="c1">#Set the green channel to 0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img2</span><span class="p">)</span>         <span class="c1">#show the new image</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers). Got range [0.0..100.0].
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7cbd2ef18550&gt;
+</pre></div>
+</div>
+<img alt="../../_images/2f354c3f86009988462e58109a56dbe71b24be067421bed7880932c271b98b6b.png" src="../../_images/2f354c3f86009988462e58109a56dbe71b24be067421bed7880932c271b98b6b.png" />
+</div>
+</div>
+<p>When we remove the green and blue components of an image, all we are left with will be the red portion, which is what’s displayed above.</p>
+<blockquote>
+<div><p><b>Task:</b>
+Using your own image:</p>
+<p>Make the upper half of the image into the blue component</p>
+<p>Make the bottom half of the image into the green component</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img2</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>        <span class="c1">#make a copy of our image</span>
+
+<span class="c1"># upper half</span>
+<span class="n">img2</span><span class="p">[:</span><span class="mi">150</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># red off</span>
+<span class="n">img2</span><span class="p">[:</span><span class="mi">150</span><span class="p">,:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># green off</span>
+
+<span class="c1"># lower half</span>
+<span class="n">img2</span><span class="p">[</span><span class="mi">150</span><span class="p">:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># red off</span>
+<span class="n">img2</span><span class="p">[</span><span class="mi">150</span><span class="p">:,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># blue off</span>
+ 
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img2</span><span class="p">)</span>         <span class="c1">#show the new image</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7cbd2c978690&gt;
+</pre></div>
+</div>
+<img alt="../../_images/9563220a1ef335fc94e29df79113b99887d72d716c984e1889464f8599c21de7.png" src="../../_images/9563220a1ef335fc94e29df79113b99887d72d716c984e1889464f8599c21de7.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses/csci127"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-the-end-of-this-notebook-you-ll-be-able-to">At the end of this notebook, you’ll be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-i-inputs">Part I. Inputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-ii-if-statements">Part II. If Statements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-iii-loading-data">Part III: Loading data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ryan Vaz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
