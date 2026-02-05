@@ -25,6 +25,10 @@ I am a Adjunct Lecturer at Hunter College. I did my Undergraduate and Masters De
 
 ### Course Material
 
-- [CSCI 127](courses/csci127/csci127.md)
+- [Introduction to Python](courses/csci127/csci127.md)
 
-- [CSCI 135](courses/csci135/csci135.md)
+- [Introduction to C++](courses/csci135/csci135.md)
+
+- [Introduction to Data Science](https://sacredfuel.github.io/data-science-sp26/)
+
+- [Introduction to Data Visualization](https://sacredfuel.github.io/data-visualization-sp26/)
